@@ -1,5 +1,13 @@
 <?php
 require_once('functions.php');
+
+function getUserName()
+{
+  return $_SESSION['user']['Name'];
+}
+if (isset($_SESSION['user'])) {
+  $userName = getUserName();
+}
 ?>
 
 
@@ -55,12 +63,25 @@ require_once('functions.php');
           <?php
         } else {
           ?>
-          <li class="nav-item">
-            <form action="/logout.php" method="post">
-              <button class="btn btn-light"><i class="bi bi-box-arrow-left"></i> Logout</button>
-            </form>
 
-          </li>
+          <div class="btn-group dropstart">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              data-bs-auto-close="true" aria-expanded="false">
+              Hi! <?= $userName ?>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+
+                <button class="dropdown-item">Change Password</button>
+              </li>
+              <li>
+                <form action="/logout.php" class="text-start d-inline" method="post">
+                  <button class="dropdown-item">Logout</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+
           <?php
         }
         ?>

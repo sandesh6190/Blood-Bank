@@ -25,14 +25,17 @@ $search = getParam('userSearch');
 $searchrole = getParam('searchRole');
 $searchstatus = getParam('searchStatus', 'Active');
 
+
+
 function getSearchUser()
 {
     $search = getParam('userSearch');
     $searchrole = getParam('searchRole');
     $searchstatus = getParam('searchStatus', 'Active');
     $connection = ConnectionHelper::getConnection();
-    $query = "select * from user where ((:search is null) or (Username like concat('%', :search, '%')) or (Name like concat('%', :search, '%')) or (Address like concat('%', :search, '%')) or (Email like concat('%', :search, '%'))) and ((:role is null) or (Role = :role)) and ((:status is null) or (Status = :status))";
+    $query = "select * from user where ((:search is null) or (Username like concat('%', :search, '%')) or (Name like concat('%', :search, '%')) or (Address like concat('%', :search, '%')) or (Email like concat('%', :search, '%'))) and ((:role is null) or (Role = :role)) and ((:status is null) or (Status = :status)) and Id != :id";
     $statement = $connection->prepare($query);
+    $statement->bindParam('id', $_SESSION['user']['ID']);
     $statement->bindParam('search', $search);
     $statement->bindParam('role', $searchrole);
     $statement->bindParam('status', $searchstatus);

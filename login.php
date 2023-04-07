@@ -55,6 +55,10 @@ if (isPost()) {
     <input type="password" placeholder="Password" id="password" name="password" required>
 
     <button>Log In</button>
+
+    <div class="noID">
+        <a href="/index.php">I don't have ID</a>
+    </div>
 </form>
 
 
