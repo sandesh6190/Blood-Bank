@@ -1,6 +1,4 @@
 <?php
-require_once('../includes/themeheader.php');
-require_once('../includes/navbar.php');
 require_once('../includes/functions.php');
 require_once('../includes/connection.php');
 
@@ -43,12 +41,15 @@ if (isPost()) {
     $statement->execute();
     $result = $statement->rowCount();
     if ($result > 0) {
-        echo "Data edited";
+        addSuccessMessage("Successfully User Edited");
     } else
-        echo "No data edited";
+        addErrorMessage("Unfortunately, User didn't Edited");
 
     header('Location: /Admin/users.php');
 }
+
+require_once('../includes/themeheader.php');
+require_once('../includes/navbar.php');
 
 ?>
 

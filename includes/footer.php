@@ -1,5 +1,6 @@
 <footer class="text-center py-2 mt-4">&copy; Copyright 2022 | Blood Bank Management System <br> Developed by Sandesh
-    Limbu</footer>
+    Limbu, Shisir Jabegu and Tanuja Agrawal</footer>
+<script src="/css/bootstrap-script.js"></script>
 </body>
 
 </html>

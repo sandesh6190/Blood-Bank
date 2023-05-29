@@ -1,6 +1,4 @@
 <?php
-require_once('../../includes/themeheader.php');
-require_once('../../includes/navbar.php');
 require_once('../../includes/connection.php');
 require_once('../../includes/functions.php');
 
@@ -32,12 +30,15 @@ if (isPost()) {
     $statement->execute();
     $result = $statement->rowCount();
     if ($result > 0) {
-        echo "Data inserted";
+        addSuccessMessage("Member Added");
 
         header('Location: /user/member/');
     } else
-        echo "No data inserted";
+        addErrorMessage("Unfortunately, Member didn't add");
 }
+
+require_once('../../includes/themeheader.php');
+require_once('../../includes/navbar.php');
 ?>
 
 <form method="post">

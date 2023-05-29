@@ -1,6 +1,4 @@
 <?php
-require_once('../../includes/themeheader.php');
-require_once('../../includes/navbar.php');
 require_once('../../includes/connection.php');
 require_once('../../includes/functions.php');
 
@@ -49,11 +47,14 @@ if (isPost()) {
     $statement->execute();
     $result = $statement->rowCount();
     if ($result > 0) {
-        echo "Data updated";
+        addSuccessMessage("Successfully Member Edited ");
         header('Location: /user/member/');
     } else
-        echo "No data updated";
+        addErrorMessage("Unfortunately, No member updated");
 }
+
+require_once('../../includes/themeheader.php');
+require_once('../../includes/navbar.php');
 ?>
 
 <form method="post">

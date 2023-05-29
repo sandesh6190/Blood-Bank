@@ -1,6 +1,4 @@
 <?php
-require_once('../includes/themeheader.php');
-require_once('../includes/navbar.php');
 require_once('../includes/functions.php');
 require_once('../includes/connection.php');
 
@@ -33,10 +31,14 @@ if (isPost()) {
     $statement->execute();
     $result = $statement->rowCount();
     if ($result > 0) {
-        echo "Data inserted";
+        addSuccessMessage("Successfully User Registered");
+        header('Location: /Admin/users.php');
     } else
-        echo "No data inserted";
+        addErrorMessage("Unfortunately, User didn't Registered");
 }
+
+require_once('../includes/themeheader.php');
+require_once('../includes/navbar.php');
 ?>
 <form method="post">
 

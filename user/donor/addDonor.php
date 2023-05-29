@@ -30,22 +30,31 @@ if (isPost()) {
     $statement->execute();
     $result = $statement->rowCount();
     if ($result > 0) {
-        echo "Data inserted";
+        addSuccessMessage("Successfully Donor Added");
     } else
-        echo "No data inserted";
+        addErrorMessage("Unfortunately, Donor didn't add");
 }
 ?>
 
 <form method="post">
 
     <div class="container mt-4">
-        <div class="d-flex">
-            <a href="/user/donor/?CampaignId=<?= $CampaignID ?>" class="btn btn-danger my-2"><i
-                    class="bi bi-box-arrow-left"></i> Back</a>
-        </div>
         <div class="card shadow-lg">
             <div class="card-header">
-                <h4 class="card-title text-center text-primary text-uppercase">Donor Form</h4>
+                <div class="row">
+                    <div class="col-3 p-3">
+                        <h4 class="card-title text-center text-primary text-uppercase">Donor Form</h4>
+                    </div>
+                    <div class="col-7">
+
+                    </div>
+                    <div class="col-2 ps-5">
+                        <a href="/user/donor/?CampaignId=<?= $CampaignID ?>" class="btn btn-danger my-2"><i
+                                class="bi bi-box-arrow-left"></i> Back</a>
+                    </div>
+
+
+                </div>
             </div>
             <div class="card-body">
                 <div class="row">

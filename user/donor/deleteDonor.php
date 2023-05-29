@@ -16,14 +16,16 @@ if (isPost()) {
     $statement->bindParam('id', $donorId);
     $statement->execute();
 
-    $CampaignID = $statement->fetch();
+    $Campaign = $statement->fetch();
 
     $query = "delete from tbl_donor where ID=:id";
     $statement = $connection->prepare($query);
     $statement->bindParam('id', $donorId);
     $statement->execute();
 
-    header('Location: /user/donor/?CampaignId=' . $CampaignID['CampaignID']);
+    addSuccessMessage("Successfully Donor Deleted");
+
+    header('Location: /user/donor/?CampaignId=' . $Campaign['CampaignID']);
 }
 
 ?>

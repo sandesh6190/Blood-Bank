@@ -22,8 +22,9 @@ if (isPost()) {
         $statement = $connection->prepare($query);
         $statement->bindParam('id', $CampaignId);
         $statement->execute();
+        addSuccessMessage("Successfully Campaign Deleted");
     } else {
-        echo "Campaign can't be deleted!";
+        addErrorMessage("Unfortunately, Campaign can't be deleted");
     }
 
     header('Location: /user/campaign/');

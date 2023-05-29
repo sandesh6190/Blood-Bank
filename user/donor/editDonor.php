@@ -1,6 +1,4 @@
 <?php
-require_once('../../includes/themeheader.php');
-require_once('../../includes/navbar.php');
 require_once('../../includes/connection.php');
 require_once('../../includes/functions.php');
 
@@ -47,6 +45,7 @@ if (isPost()) {
     $statement->bindParam('bloodGroup', $BloodGroup);
     $statement->bindParam('id', $donorId);
     $statement->execute();
+    addSuccessMessage("Successfully Donor Edited");
 
     $query1 = "select CampaignID from tbl_donor where ID = :id";
     $statement = $connection->prepare($query1);
@@ -54,10 +53,13 @@ if (isPost()) {
     $statement->execute();
 
     $CampaignID = $statement->fetch();
+
     header('Location: /user/donor/?CampaignId=' . $CampaignID['CampaignID']);
     // $CampaignID = $statement->fetchColumn();
     // header('Location: /user/campaign/donor/?CampaignId=' . $CampaignID);
 }
+require_once('../../includes/themeheader.php');
+require_once('../../includes/navbar.php');
 ?>
 
 <form method="post">

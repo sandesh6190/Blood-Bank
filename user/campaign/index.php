@@ -30,13 +30,15 @@ $result = getCampaign();
 ?>
 
 <div class="container-fluid mt-2">
-    <div>
-        <a href="/user/campaign/add.php" class="btn btn-danger my-2"><i class="bi bi-person-plus"></i> Add Campaign</a>
-    </div>
-
     <div class="card shadow-lg">
         <div class="card-header">
-            <h3 class="card-title">List of Campaign</h3>
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">List of Campaign</h4>
+
+                <a href="/user/campaign/add.php" class="btn btn-danger my-2" title="Add Campaign"><i
+                        class="bi bi-person-plus"></i> Add
+                    Campaign</a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -50,8 +52,8 @@ $result = getCampaign();
                             value="<?= $SearchDate ?>">
                         <input class="form-control me-sm-2" type="search" placeholder="Search" name="search"
                             value="<?= $Search ?>">
-                        <button class="btn btn-warning my-2 my-sm-0" type="submit" style="color: red;"><i
-                                class="bi bi-search"></i></button>
+                        <button class="btn btn-warning my-2 my-sm-0" type="submit" title="Search Campaign"
+                            style="color: red;"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -95,14 +97,15 @@ $result = getCampaign();
                                     <?= $campaign['Date'] ?>
                                 </td>
                                 <td class="d-flex">
-                                    <a href="/user/donor/?CampaignId=<?= $campaign['ID'] ?>"
-                                        class="btn btn-info  me-sm-2">Donors</a>
-                                    <a class="btn btn-success  me-sm-2"
+                                    <a href="/user/donor/?CampaignId=<?= $campaign['ID'] ?>&CampaignName=<?= $campaign['Name'] ?>"
+                                        class="btn btn-info  me-sm-2" title="List of Donors">Donors</a>
+                                    <a class="btn btn-success  me-sm-2" title="Edit"
                                         href="/user/campaign/edit.php?id=<?= $campaign['ID'] ?>"><i
                                             class="bi bi-pencil-square"></i></a>
                                     <form action="/user/campaign/delete.php" method="POST">
                                         <input type="hidden" name="id" value="<?= $campaign['ID'] ?>">
-                                        <button class="btn btn-danger sm-2"><i class="bi bi-trash-fill"></i></button>
+                                        <button class="btn btn-danger sm-2" title="Delete"><i
+                                                class="bi bi-trash-fill"></i></button>
                                     </form>
                                 </td>
                             </tr>

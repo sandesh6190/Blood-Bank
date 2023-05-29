@@ -13,6 +13,8 @@ if (isPost()) {
     $statement = $connection->prepare($query);
     $statement->bindParam('id', $memberId);
     $statement->execute();
+
+    addSuccessMessage("Member Deleted");
     header('Location: /user/member/');
 }
 

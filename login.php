@@ -56,7 +56,7 @@ if (isPost()) {
 
     <button>Log In</button>
 
-    <div class="noID">
+    <div>
         <a href="/index.php">I don't have ID</a>
     </div>
 </form>

@@ -21,8 +21,10 @@ if (isPost()) {
     $statement->bindParam('id', $userId);
     if ($user['Status'] == "Active") {
         $statement->bindParam('toggle', $deactivate);
+        addSuccessMessage("Successfully User status deactivated");
     } else {
         $statement->bindParam('toggle', $active);
+        addSuccessMessage("Successfully User status activated");
     }
     $statement->execute();
 

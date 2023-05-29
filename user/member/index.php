@@ -1,19 +1,10 @@
 <?php
-require_once('../../includes/themeheader.php');
-require_once('../../includes/navbar.php');
 require_once('../../includes/connection.php');
 require_once('../../includes/functions.php');
 
 if (!isset($_SESSION['user']) || ($_SESSION['user'] == null)) {
     header('Location: /login.php');
 }
-
-// $connection = ConnectionHelper::getConnection();
-// $query = "select * from tbl_member";
-// $statement = $connection->prepare($query);
-// $statement->execute();
-// //get all members
-// $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 $searchStatus = getParam("searchStatus", "Approved");
 $search = getParam("search");
@@ -38,18 +29,20 @@ function getSearchData()
     return $result;
 }
 $result = getSearchData();
-
+require_once('../../includes/themeheader.php');
+require_once('../../includes/navbar.php');
 ?>
 
 <div class="container-fluid mt-2">
-    <a href="add.php" class="btn btn-danger my-2">
-        <i class="bi bi-person-plus"></i> Add Member
-    </a>
-
-
     <div class="card shadow-lg">
         <div class="card-header">
-            <h4 class="card-title">List of members</h4>
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">List of members</h4>
+
+                <a href="add.php" class="btn btn-danger my-2 me-0" title="Add Member">
+                    <i class="bi bi-person-plus"></i> Add Member
+                </a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -89,8 +82,8 @@ $result = getSearchData();
 
                         <input class="form-control me-sm-2" type="search" placeholder="Search" name="search"
                             value="<?= $search ?>">
-                        <button class="btn btn-warning my-2 my-sm-0" type="submit" style="color: red;"><i
-                                class="bi bi-search"></i></button>
+                        <button class="btn btn-warning my-2 my-sm-0" type="submit" title="Search Member"
+                            style="color: red;"><i class="bi bi-search"></i></button>
                 </div>
                 </form>
 
@@ -110,7 +103,7 @@ $result = getSearchData();
                             <th scope="col">Blood Group</th>
                             <th scope="col">Last Date</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Status</th>
+                            <!-- <th scope="col">Status</th> -->
                         </tr>
                     </thead>
 
@@ -151,24 +144,27 @@ $result = getSearchData();
                                         ?>
                                         <form action="approve.php" method="POST" class="" style="display:inline">
                                             <input type="hidden" name="id" value="<?= $member['ID'] ?>" id="">
-                                            <button class="btn btn-info  me-sm-2 d-flex"><i class="bi bi-check-square"></i>
+                                            <button title="Approve" class="btn btn-info  me-sm-2 d-flex"><i
+                                                    class="bi bi-check-square"></i>
                                                 Approve</button>
                                         </form>
                                         <?php
-                                    }
-                                    ?>
-                                    <a class="btn btn-success  me-sm-2" href="edit.php?id=<?= $member['ID'] ?>"> <i
-                                            class="bi bi-pencil-square"></i></a>
-                                    <form action="delete.php" method="POST" class="" style="display:inline">
-                                        <input type="hidden" name="id" value="<?= $member['ID'] ?>" id="">
-                                        <button class="btn btn-danger  me-sm-2"><i class="bi bi-trash-fill"></i></button>
-                                    </form>
-                                </td>
-                                <td>
+                                    } else {
+                                        ?>
+                                        <a title="Edit" class="btn btn-success  me-sm-2"
+                                            href="edit.php?id=<?= $member['ID'] ?>"> <i class="bi bi-pencil-square"></i></a>
+                                        <form action="delete.php" method="POST" class="" style="display:inline">
+                                            <input type="hidden" name="id" value="<?= $member['ID'] ?>" id="">
+                                            <button title="Delete" class="btn btn-danger  me-sm-2"><i
+                                                    class="bi bi-trash-fill"></i></button>
+                                        </form>
+                                    </td>
+                                    <!-- <td>
                                     <?= $member['Status'] ?>
-                                </td>
-                            </tr>
-                            <?php
+                                </td> -->
+                                </tr>
+                                <?php
+                                    }
                         endforeach;
                         ?>
                     </tbody>

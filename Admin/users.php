@@ -50,14 +50,17 @@ $result = getSearchUser();
 
 
 <div class="container-fluid mt-2">
-    <a href="/Admin/adduser.php" class="btn btn-danger my-2">
-        <i class="bi bi-person-plus"></i> Add User
-    </a>
+
 
     <div class="card shadow-lg">
         <div class="card-header">
-            <h4 class="card-title">List of Users</h4>
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">List of Users</h4>
 
+                <a href="/Admin/adduser.php" class="btn btn-danger my-2" title="Add User">
+                    <i class="bi bi-person-plus"></i> Add User
+                </a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -82,8 +85,8 @@ $result = getSearchUser();
 
                         <input class="form-control me-sm-2" type="search" placeholder="Search" name="userSearch"
                             value="<?= $search ?>">
-                        <button class="btn btn-warning my-2 my-sm-0" type="submit" style="color: red;"><i
-                                class="bi bi-search"></i></button>
+                        <button class="btn btn-warning my-2 my-sm-0" type="submit" title="Search User"
+                            style="color: red;"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -92,6 +95,7 @@ $result = getSearchUser();
                 <table class="table table-hover table-bordered">
                     <thead class="table-danger">
                         <tr>
+                            <th>SN</th>
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
@@ -104,9 +108,13 @@ $result = getSearchUser();
                     </thead>
                     <tbody class="table-light">
                         <?php
+                        $sn = 0;
                         foreach ($result as $user):
                             ?>
                             <tr>
+                                <td>
+                                    <?= ++$sn ?>
+                                </td>
                                 <td>
                                     <?= $user['Name'] ?>
                                 </td>
@@ -129,14 +137,27 @@ $result = getSearchUser();
                                     <?= $user['Status'] ?>
                                 </td>
                                 <td class="d-flex">
-                                    <a class="btn btn-success btn-sm me-sm-2 d-flex" style="color: black;"
+                                    <a class="btn btn-success me-sm-2 d-flex" title="Edit" style="color: black;"
                                         href="/Admin/edituser.php?userid=<?= $user['ID'] ?>"><i
-                                            class="bi bi-pencil-square"></i> Edit</a>
+                                            class="bi bi-pencil-square"></i></a>
                                     <form action="/Admin/togglestatus.php" method="POST">
-                                        <button class="btn btn-info btn-sm" style="display: flex; color: black;"
-                                            name="userid" value="<?= $user['ID'] ?>"><i class="bi bi-toggle2-off"></i>
-                                            Status</button>
+                                        <button class="btn btn-warning me-sm-2" title="Status Change"
+                                            style="display: flex; color: black;" name="userid" value="<?= $user['ID'] ?>">
+                                            <?php
+                                            if ($user['Status'] == "Active"):
+                                                ?>
+                                                <i class="bi bi-toggle2-off"></i>
+                                                <?php
+                                            else:
+                                                ?>
+                                                <i class="bi bi-toggle2-on"></i>
+                                            <?php endif ?>
+                                        </button>
                                     </form>
+                                    <button class="btn btn-info" title="Reset Password" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal1" style="display: flex; color: black;" "><i class=" bi
+                                    bi-key-fill"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <?php
@@ -144,6 +165,44 @@ $result = getSearchUser();
                         ?>
 
                     </tbody>
+                    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <form action="/Admin/resetPassword.php" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Reset Password</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-10 d-flex flex-column mt-2">
+                                                    <label for="NewPassword" class="form-label">New Password</label>
+                                                    <input type="password" class="form-control" name="NewPassword"
+                                                        required>
+                                                </div>
+                                                <div class="col-10 d-flex flex-column mt-2">
+                                                    <label for="ConfirmPassword" class="form-label">Confirm
+                                                        Password</label>
+                                                    <input type="password" class="form-control" name="ConfirmPassword"
+                                                        required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary text-danger"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class=" btn
+                                            btn-info" name="userid" value="<?= $user['ID'] ?>"> Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </table>
             </div>
         </div>

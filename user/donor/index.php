@@ -1,6 +1,5 @@
 <?php
-require_once('../../includes/themeheader.php');
-require_once('../../includes/navbar.php');
+
 require_once('../../includes/connection.php');
 require_once('../../includes/functions.php');
 
@@ -15,6 +14,7 @@ $SearchBloodGroup = getParam('searchBloodGroup');
 $SearchGender = getParam('searchGender');
 
 $CampaignID = getParam('CampaignId');
+$CampaignName = getParam('CampaignName');
 function getDonor($CampaignID)
 {
     $Search = getParam('search');
@@ -34,19 +34,29 @@ function getDonor($CampaignID)
 }
 
 $result = getDonor($CampaignID);
+require_once('../../includes/themeheader.php');
+require_once('../../includes/navbar.php');
 ?>
 
 <div class="container-fluid mt-2">
     <div>
-        <a href="/user/campaign/" class="btn btn-danger my-2"><i class="bi bi-box-arrow-left"></i> Back</a>
-        <a href="/user/donor/addDonor.php?CampaignId=<?= $CampaignID ?>" class="btn btn-info my-2"><i
-                class="bi bi-person-plus"></i> Add
-            Donor</a>
+
     </div>
 
     <div class="card shadow-lg">
         <div class="card-header">
-            <h3 class="card-title">List of Donors</h3>
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">List of Donors of <span class="text-danger">
+                        <?= $CampaignName ?>
+                    </span>
+
+                </h4>
+
+                <!-- <a href="/user/campaign/" class="btn btn-danger my-2"><i class="bi bi-box-arrow-left"></i> Back</a> -->
+                <a href="/user/donor/addDonor.php?CampaignId=<?= $CampaignID ?>" class="btn btn-info my-2"
+                    title="Add Donor"><i class="bi bi-person-plus"></i> Add
+                    Donor</a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -77,8 +87,8 @@ $result = getDonor($CampaignID);
 
                         <input class="form-control me-sm-2" type="search" placeholder="Search" name="search"
                             value="<?= $Search ?>">
-                        <button class="btn btn-warning my-2 my-sm-0" type="submit" style="color: red;"><i
-                                class="bi bi-search"></i></button>
+                        <button class="btn btn-warning my-2 my-sm-0" type="submit" title="Search Donors"
+                            style="color: red;"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
             </div>
@@ -125,12 +135,13 @@ $result = getDonor($CampaignID);
                                     <?= $donor['Phone'] ?>
                                 </td>
                                 <td class="d-flex">
-                                    <a class="btn btn-success  me-sm-2"
+                                    <a class="btn btn-success  me-sm-2" title="Edit"
                                         href="/user/donor/editDonor.php?id=<?= $donor['ID'] ?>&CampaignId=<?= $CampaignID ?>"><i
                                             class="bi bi-pencil-square"></i></a>
                                     <form action="/user/donor/deleteDonor.php" method="POST">
                                         <input type="hidden" name="id" value="<?= $donor['ID'] ?>">
-                                        <button class="btn btn-danger sm-2"><i class="bi bi-trash-fill"></i></button>
+                                        <button class="btn btn-danger sm-2" title="Delete"><i
+                                                class="bi bi-trash-fill"></i></button>
                                     </form>
                                 </td>
                             </tr>

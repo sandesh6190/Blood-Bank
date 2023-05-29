@@ -1,6 +1,4 @@
 <?php
-require_once('../../includes/themeheader.php');
-require_once('../../includes/navbar.php');
 require_once('../../includes/connection.php');
 require_once('../../includes/functions.php');
 
@@ -39,11 +37,14 @@ if (isPost()) {
     $statement->execute();
     $result = $statement->rowCount();
     if ($result > 0) {
-        echo "Data inserted";
+        addSuccessMessage("Successfully Campaign Edited");
     } else
-        echo "Data not inserted";
+        addErrorMessage("Unfortunately, Campaign didn't Edit");
     header('Location: /user/campaign/');
 }
+
+require_once('../../includes/themeheader.php');
+require_once('../../includes/navbar.php');
 ?>
 
 <form action="" method="POST">
